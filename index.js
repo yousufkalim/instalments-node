@@ -1,5 +1,5 @@
 /**
- * Node-JS Boilerplate
+ * Installment Management
  * @author Yousuf Kalim
  */
 require("dotenv").config();

@@ -11,10 +11,10 @@ Validations
 */
 
 // You can create multiple validations strategies (Read express-validator documentation for more details)
-// User Signup Validation
-exports.validateUser = [
-  check("name", "Name is required.").notEmpty().trim(),
-  check("cnic", "CNIC is required.").notEmpty().trim().isNumeric(),
+//Admin Signup Validation
+exports.validateAdmin = [
+  check("first_name", "first_name is required.").notEmpty().trim(),
+  check("last_name", "last_name is required.").notEmpty().trim(),
   check("email", "Email is required.").notEmpty().isEmail().trim(),
   check("password", "Password is required.")
     .notEmpty()
@@ -24,8 +24,13 @@ exports.validateUser = [
     .notEmpty()
     .trim()
     .isLength({ min: 8 }),
+];
+// User Signup Validation
+exports.validateUser = [
+  check("name", "Name is required.").notEmpty().trim(),
+  check("cnic", "CNIC is required.").notEmpty().trim().isNumeric(),
+  check("email", "Email is required.").notEmpty().isEmail().trim(),
   check("gender", "Gender is required.").notEmpty(),
-  check("role", "Role is required.").notEmpty(),
   check("number", "Number is required.").notEmpty().isNumeric().trim(),
 ];
 
@@ -62,6 +67,24 @@ exports.changePasswordValidate = [
     .notEmpty()
     .trim()
     .isLength({ min: 8 }),
+];
+// InstallmentPlan validation
+exports.validatePlan = [
+  check("plan", "plan is required").notEmpty().trim(),
+  check("deposit_payment", "deposit_payment is required.")
+    .notEmpty()
+    .isNumeric()
+    .trim(),
+  check("total_installments", "total_installments is required")
+    .notEmpty()
+    .isNumeric()
+    .trim(),
+];
+// Installment validation
+exports.validateInstallment = [
+  check("user", "userID is required").notEmpty().trim(),
+  check("plan", "InstallmentPlanId is required.").notEmpty().trim(),
+  check("due_date", "due_date is required").notEmpty().isDate().trim(),
 ];
 
 /*

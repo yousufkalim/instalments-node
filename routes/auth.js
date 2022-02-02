@@ -1,6 +1,6 @@
 /**
- * User auth routes
- * @author Yousuf Kalim
+ * Admin auth routes
+ * @author Shuja Naqvi
  */
 const router = require("express").Router();
 const auth = require("../controllers/auth");
@@ -13,14 +13,14 @@ const {
 
 /**
  * ////////////////////////// Routes /////////////////////////
- * @method post user login
+ * @method post Admin login
  * @method get check auth
  * @method put change password
  * @method post forgot email
  */
 
 // Read
-router.post("/login", validateLogin, isValidated, auth.login); // Get all users at once
+router.post("/login", validateLogin, isValidated, auth.login); // Get all Admins at once
 router.get("/", checkAuth, auth.confirmAuth);
 router.put(
   "/password/:userId",

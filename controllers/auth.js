@@ -1,8 +1,8 @@
 /**
- * User auth controllers
- * @author Yousuf Kalim
+ * Admin auth controllers
+ * @author Shuja
  */
-const Users = require("../models/Users");
+const Admins = require("../models/Admins");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sendEmail } = require("../utils/sendEmail");
@@ -20,18 +20,18 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     // Getting user from db
-    const user = await Users.findOne({ email });
+    const admin = await Admins.findOne({ email });
 
-    if (!user) {
+    if (!admin) {
       // If user not found
-      console.log(user);
+      console.log(admin);
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "Admin not found" });
     }
 
     // Comparing password
-    const isMatched = bcrypt.compareSync(password, user.password);
+    const isMatched = bcrypt.compareSync(password, admin.password);
 
     if (!isMatched) {
       // If password not matched
@@ -41,14 +41,14 @@ exports.login = async (req, res) => {
     }
 
     // Creating payload with user object
-    const payload = { user };
+    const payload = { admin };
 
     // Generating token
     jwt.sign(payload, tokenSecret, { expiresIn: 360000 }, (err, token) => {
       if (err) throw err;
 
       // done
-      res.json({ success: true, user, token });
+      res.json({ success: true, admin, token });
     });
   } catch (err) {
     // Error handling
@@ -74,15 +74,15 @@ exports.changePassword = async (req, res) => {
       });
     }
 
-    let user = await Users.findById(userId);
+    let admin = await Admins.findById(userId);
 
-    if (!user) {
+    if (!admin) {
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
     }
 
-    const isMatched = bcrypt.compareSync(oldPassword, user.password);
+    const isMatched = bcrypt.compareSync(oldPassword, admin.password);
 
     if (!isMatched) {
       return res
@@ -91,14 +91,14 @@ exports.changePassword = async (req, res) => {
     }
 
     // Generate token
-    user.password = bcrypt.hashSync(newPassword, parseInt(bcryptSalt));
+    admin.password = bcrypt.hashSync(newPassword, parseInt(bcryptSalt));
 
-    await user.save();
+    await admin.save();
 
-    res.json({ success: true, user });
+    res.json({ success: true, admin });
   } catch (err) {
     // Error handling
-    console.log("Error ----> ", err);
+    console.log("Error ----> ", err.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
@@ -111,9 +111,9 @@ exports.changePassword = async (req, res) => {
 exports.forgot = async (req, res) => {
   try {
     let { email } = req.params;
-    let user = await Users.findOne({ email });
+    let admin = await Admins.findOne({ email });
 
-    if (!user) {
+    if (!admin) {
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
@@ -126,8 +126,11 @@ exports.forgot = async (req, res) => {
     sendEmail(email, randomPassword)
       .then(async () => {
         // If email is sent then we have to update the password in db
-        user.password = await bcrypt.hash(randomPassword, parseInt(bcryptSalt));
-        await user.save();
+        admin.password = await bcrypt.hash(
+          randomPassword,
+          parseInt(bcryptSalt)
+        );
+        await admin.save();
 
         // Done
         res.json({ success: true, message: "Email sent successfully" });
@@ -153,5 +156,5 @@ exports.forgot = async (req, res) => {
  */
 exports.confirmAuth = async (req, res) => {
   // If user authenticated
-  res.json({ success: true, user: req.user });
+  res.json({ success: true, user: req.admin });
 };

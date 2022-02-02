@@ -21,23 +21,18 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    password: {
-      type: String,
-      required: true,
-      minlength: 8,
-    },
     gender: {
       type: String,
       enum: ["male", "female"],
     },
-    role: {
-      type: String,
-      required: true,
-      enum: ["admin", "user"],
-      default: "user",
-    },
     photo: String,
     number: String,
+    installments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "installments",
+      },
+    ],
   },
   {
     timestamps: true,

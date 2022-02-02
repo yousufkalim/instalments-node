@@ -1,0 +1,660 @@
+{
+	"info": {
+		"_postman_id": "6c2dd8e5-edf7-4ea7-8567-c3311917540c",
+		"name": "InstallmentManagment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admins",
+			"item": [
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/falconitconsulting/Desktop/Screenshot 2022-01-31 at 6.00.48 PM.png"
+								},
+								{
+									"key": "first_name",
+									"value": "shuja",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "naqvi",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "shujanaqvi288@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/admins/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"admins",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"shujanaqvi288@gmail.com\",\"password\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRmSnNTdjk5ZWlvTjFSbTdWcDBudDJlZXIyaGV1emxod3J1UnY5djB6NUFSa3Vpclh0RVhDcSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsIl9fdiI6MH0sImlhdCI6MTY0MzY5OTAzNSwiZXhwIjoxNjQ0MDU5MDM1fQ.IStJmrZ5SmxEEr7yzb1_9wzzXN_iZkCb2MHRqBwMl14",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/auth/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"oldPassword\":\"1234567890\",\"newPassword\":\"12345678\",\"confirmPassword\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/password/61f8da16f4642645aedd8154",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"password",
+								"61f8da16f4642645aedd8154"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMDkwNSwiZXhwIjoxNjQ0MDYwOTA1fQ.haM1iUVoLQnX5UhGJWFIImXTdVOj5K9wSnp_M25ZXQ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "samama",
+									"type": "text"
+								},
+								{
+									"key": "cnic",
+									"value": "3420152145111",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "samama@falconit.com.pk",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/falconitconsulting/Desktop/Screenshot 2022-01-31 at 6.00.48 PM.png"
+								},
+								{
+									"key": "number",
+									"value": "03127378947",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users/61f8e47a9d0cfa489a3ff99d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"61f8e47a9d0cfa489a3ff99d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"payment_plan\":[\"61f9001255732d4c42ed90fc\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/61f8e47a9d0cfa489a3ff98d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"61f8e47a9d0cfa489a3ff98d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InstallmentPlans",
+			"item": [
+				{
+					"name": "Get all Plans",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/payments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Plan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/payments/61f8ff94ba99ad4c1a5bd3f4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"61f8ff94ba99ad4c1a5bd3f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Plan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"plan\":\"Yearly\",\"deposit_payment\":\"20000\",\"total_installments\":\"2100\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/payments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/payments/61f9001255732d4c42ed90fc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"61f9001255732d4c42ed90fc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Installments",
+			"item": [
+				{
+					"name": "Create Installment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\":\"61f8e47a9d0cfa489a3ff98d\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/installments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"installments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay Installment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"paid_amount\":\"2200\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/installments/61f91817de0379543be514e3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"installments",
+								"61f91817de0379543be514e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Installment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/installments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"installments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get installment by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/installments/61f91817de0379543be514e3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"installments",
+								"61f91817de0379543be514e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Installment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJfaWQiOiI2MWY4ZGExNmY0NjQyNjQ1YWVkZDgxNTQiLCJmaXJzdF9uYW1lIjoic2h1amEiLCJsYXN0X25hbWUiOiJuYXF2aSIsImVtYWlsIjoic2h1amFuYXF2aTI4OEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQzNmVHTWlGaVkuUFg1QlIxUTUweXEuNWtXcGxRRVpFTkp2ejVYUFdQWXpFL2VaU3E2NkExYSIsInBob3RvIjoidXBsb2Fkcy8xNjQzNjk4NzEwMjQ1LVNjcmVlbnNob3QgMjAyMi0wMS0zMSBhdCA2LjAwLjQ4IFBNLnBuZyIsImNyZWF0ZWRBdCI6IjIwMjItMDItMDFUMDY6NTg6MzAuNTkzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMDFUMDc6MTc6MDAuMzM0WiIsIl9fdiI6MH0sImlhdCI6MTY0MzcwMTc3OSwiZXhwIjoxNjQ0MDYxNzc5fQ.9PhJpu1hsD0_GS7ejncGqtsqfju_KE7YKt03oikeVDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/installments/61f91786de96ab53fd6a607e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"installments",
+								"61f91786de96ab53fd6a607e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
