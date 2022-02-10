@@ -4,6 +4,8 @@
  */
 const Users = require("../models/Users");
 const Admins = require("../models/Admins");
+const installmentPlans = require("../models/PaymentPlans");
+const Installments = require("../models/Installments");
 const bcrypt = require("bcryptjs");
 const bcryptSalt = process.env.BCRYPT_SALT || 10;
 
@@ -32,7 +34,27 @@ exports.create = async (req, res) => {
     if (req.file) {
       req.body.photo = req.file.path; // Creating a new property called photo in body object
     }
-    const user = await Users.create(req.body); // Adding user in db
+    const findInstallment = await installmentPlans.findById(
+      req.body.payment_plan
+    );
+    if (!findInstallment) {
+      return res.json({ success: false, message: "Invalid PaymentPlan Id" }); //Failure
+    }
+    console.log(findInstallment.monthly_installment, "Monthly");
+    let user = await Users.create(req.body); // Adding user in db
+    for (let i = 1; i <= findInstallment.total_installments; i++) {
+      const month = new Date();
+      month.setMonth(month.getMonth() + i);
+      let installment = await Installments.create({
+        user: user._id,
+        due_date: month,
+        plan: findInstallment._id,
+        paid_amount: findInstallment.monthly_installment,
+        user: user._id,
+      });
+      user.installments.push(installment._id);
+      await user.save();
+    }
     // Done
     return res.json({ success: true, user }); //Success
   } catch (err) {
@@ -74,7 +96,9 @@ exports.getById = async (req, res) => {
       return res.status(404).json("You are not authorized ");
     }
     const userId = req.params.userId; // Getting user id from URL parameter
-    const user = await Users.findById(userId).populate("payment_plan"); // Finding user by id
+    const user = await Users.findById(userId)
+      .populate("payment_plan")
+      .populate("installments"); // Finding user by id
     if (user) return res.status(202).json({ success: true, user });
     // Success
     else
@@ -100,10 +124,62 @@ exports.update = async (req, res) => {
       return res.status(404).json("You are not authorized ");
     }
     const userId = req.params.userId; // Getting user id from URL parameter
-    const user = await Users.findByIdAndUpdate(userId, req.body, {
-      new: true,
-    }).populate("installments"); // Updating the user
-    res.json({ success: true, user }); // Success
+    console.log(req.body.payment_plan, "Plan");
+    if (!req.body.payment_plan) {
+      let user = await Users.findByIdAndUpdate(
+        userId,
+        {
+          name: req.body.name,
+          cnic: req.body.cnic,
+          email: req.body.email,
+          gender: req.body.gender,
+          number: req.body.number,
+        },
+        { new: true }
+      );
+      return res
+        .status(202)
+        .json({ success: true, message: "user updated successfully", user });
+    }
+    let existingPlan = await Users.findOne({
+      payment_plan: req.body.payment_plan,
+    });
+    if (existingPlan) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Plan Already Exist" });
+    }
+    let findPlan = await installmentPlans.findById(req.body.payment_plan);
+    let Updateuser = await Users.findByIdAndUpdate(
+      userId,
+      {
+        name: req.body.name,
+        cnic: req.body.cnic,
+        email: req.body.email,
+        gender: req.body.gender,
+        number: req.body.number,
+        $push: {
+          payment_plan: req.body.payment_plan,
+        },
+      },
+      {
+        new: true,
+      }
+    ); // Updating the user
+    for (let i = 1; i <= findPlan.total_installments; i++) {
+      const month = new Date();
+      month.setMonth(month.getMonth() + i);
+      let installment = await Installments.create({
+        user: Updateuser._id,
+        due_date: month,
+        plan: findPlan._id,
+        paid_amount: findPlan.monthly_installment,
+      });
+      Updateuser.installments.push(installment._id);
+      await Updateuser.save();
+    }
+    console.log(Updateuser);
+    return res.json({ success: true, Updateuser }); // Success
   } catch (err) {
     // Error handling
     console.log("Error ----> ", err.message);

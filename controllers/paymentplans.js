@@ -14,15 +14,23 @@ const bcryptSalt = process.env.BCRYPT_SALT || 10;
  */
 exports.create = async (req, res) => {
   try {
-    const admin = await Admins.findOne({ email: req.admin.email });
-    if (!admin) {
-      return res.status(404).json("You are not authorized ");
+    console.log("req.body", req.body);
+    const mark_up = req.body.total_payment * (req.body.mark_up / 100);
+    req.body.monthly_installment = (
+      (mark_up + (req.body.total_payment - req.body.deposit_payment)) /
+      req.body.total_installments
+    ).toFixed(0);
+    const payment = await PaymentPlans.findOne(req.body);
+    if (payment) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Plan Already exists" });
     }
     const plan = await PaymentPlans.create(req.body);
     if (plan) return res.status(202).json({ success: true, plan });
     else
       return res
-        .status(404)
+        .status(403)
         .json({ success: false, message: "Unable to create Plan" });
   } catch (err) {
     // Error handling
@@ -85,7 +93,7 @@ exports.update = async (req, res) => {
       return res.status(404).json("You are not authorized ");
     }
     const planId = req.params.planId; // Getting plan id from URL parameter
-    const paymentplan = await PaymentPlans.findByIdAndUpdate(userId, req.body, {
+    const paymentplan = await PaymentPlans.findByIdAndUpdate(planId, req.body, {
       new: true,
     }); // Updating the plan
     res.json({ success: true, paymentplan }); // Success

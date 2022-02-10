@@ -79,6 +79,11 @@ exports.validatePlan = [
     .notEmpty()
     .isNumeric()
     .trim(),
+  check("mark_up", "Mark Up  is required").notEmpty().isNumeric().trim(),
+  check("total_payment", "total_installments is required")
+    .notEmpty()
+    .isNumeric()
+    .trim(),
 ];
 // Installment validation
 exports.validateInstallment = [

@@ -14,8 +14,8 @@ const installmentsSchema = new mongoose.Schema(
       enum: ["paid", "pending"],
       default: "pending",
     },
-    plan: { type: mongoose.Schema.Types.ObjectId, ref: "paymentplans" },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    plan: { type: mongoose.Schema.Types.ObjectId, ref: "paymentplans" },
   },
   {
     timestamps: true,

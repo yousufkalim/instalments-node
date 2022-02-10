@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
     if (!isMatched) {
       // If password not matched
       return res
-        .status(400)
+        .status(403)
         .json({ success: false, message: "Invalid Password" });
     }
 
@@ -156,5 +156,5 @@ exports.forgot = async (req, res) => {
  */
 exports.confirmAuth = async (req, res) => {
   // If user authenticated
-  res.json({ success: true, user: req.admin });
+  res.json({ success: true, admin: req.admin });
 };

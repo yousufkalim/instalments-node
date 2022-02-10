@@ -17,7 +17,6 @@ const bcryptSalt = process.env.BCRYPT_SALT || 10;
 exports.create = async (req, res) => {
   try {
     let { user, plan } = req.body;
-    console.log("Body", req.body);
     const findUser = await Users.findById(user);
     const findPlan = await PaymentPlans.findById(plan);
     if (!findUser) {
@@ -90,7 +89,55 @@ exports.getById = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
+exports.getByuserId = async (req, res) => {
+  try {
+    const userId = req.params.userId; // Getting Installment id from URL parameter
+    const plan = req.params.plan;
+    const installment = await Installments.find({ user: userId, plan: plan })
+      .populate("user")
+      .populate("plan"); // Finding Installment by id
+    if (installment.length > 0) return res.json({ success: true, installment });
+    // Success
+    else return res.json({ sucess: false, message: "No Installment found" });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+//Get Installment(pending,paid) count
+exports.getInstallmentstatus = async (req, res) => {
+  try {
+    const userId = req.params.userId; // Getting Installment id from URL parameter
+    const plan = req.params.plan;
+    console.log(req.params, "Params");
+    const Pendinginstallment = await Installments.find({
+      user: userId,
+      plan: plan,
+      status: "pending",
+    }).count();
+    console.log(Pendinginstallment, "Count Pending");
+    const Paidinstallment = await Installments.find({
+      user: userId,
+      plan: plan,
+      status: "paid",
+    }).count();
+    console.log(Paidinstallment, "Count Paid");
+    console.log(Pendinginstallment, "Count Pending");
+    if (Pendinginstallment > 0 || Paidinstallment > 0)
+      return res.json({
+        success: true,
+        Pending: Pendinginstallment,
+        Paid: Paidinstallment,
+      });
+    // Success
+    else return res.json({ sucess: false, message: "No Installment found" });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 /**
  * Update Installment
  * @param {object} req
@@ -103,7 +150,8 @@ exports.payInstallment = async (req, res) => {
     if (!admin) {
       return res.status(404).json("You are not authorized ");
     }
-    req.body.submission_date = new Date();
+    console.log(req.body);
+    req.body.submission_date = req.body.data;
     req.body.status = "paid";
     const installmentId = req.params.installmentId; // Getting installment id from URL parameter
     const installment = await Installments.findByIdAndUpdate(

@@ -18,6 +18,18 @@ const paymentplanSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    mark_up: {
+      type: Number,
+      required: true,
+    },
+    total_payment: {
+      type: Number,
+      required: true,
+    },
+    monthly_installment: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

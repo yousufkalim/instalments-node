@@ -30,7 +30,11 @@ router.post(
 // Read
 router.get("/", checkAuth, installments.getAll); // Get all Installments at once
 router.get("/:installmentId", checkAuth, installments.getById); // Get one installment by it's id
-
+router.get("/getbyUser/:userId/:plan", installments.getByuserId);
+router.post(
+  "/getInstallmentstatus/:userId/:plan",
+  installments.getInstallmentstatus
+);
 //PayInstallment
 router.put("/:installmentId", checkAuth, installments.payInstallment); // Update a specific installment by it's id
 

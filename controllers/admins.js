@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
         .json({ success: false, message: "User already exists." });
     } else if (password !== confirmPassword) {
       // Passwords not same
-      return res.status(400).json({
+      return res.status(403).json({
         success: false,
         message: "Password and Confirm Password are not same.",
       });

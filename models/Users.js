@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema(
         ref: "installments",
       },
     ],
+    payment_plan: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "paymentplans",
+      },
+    ],
   },
   {
     timestamps: true,
