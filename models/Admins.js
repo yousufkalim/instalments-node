@@ -24,6 +24,14 @@ const adminsSchema = new mongoose.Schema(
     photo: {
       type: String,
     },
+    companies: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "companies",
+    },
+    products: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "products",
+    },
   },
   {
     timestamps: true,

@@ -4,8 +4,8 @@
  */
 const PaymentPlans = require("../models/PaymentPlans");
 const Admins = require("../models/Admins");
-const bcrypt = require("bcryptjs");
-const bcryptSalt = process.env.BCRYPT_SALT || 10;
+const Users = require("../models/Users");
+const Installments = require("../models/Installments");
 
 /**
  * Create Payment-Plan
@@ -14,7 +14,7 @@ const bcryptSalt = process.env.BCRYPT_SALT || 10;
  */
 exports.create = async (req, res) => {
   try {
-    console.log("req.body", req.body);
+    const adminID = req.admin._id;
     const mark_up = req.body.total_payment * (req.body.mark_up / 100);
     req.body.monthly_installment = (
       (mark_up + (req.body.total_payment - req.body.deposit_payment)) /
@@ -26,7 +26,12 @@ exports.create = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Plan Already exists" });
     }
-    const plan = await PaymentPlans.create(req.body);
+    const plan = await PaymentPlans.create(
+      {
+        ...req.body,
+        admin: adminID
+      }
+    );
     if (plan) return res.status(202).json({ success: true, plan });
     else
       return res
@@ -118,18 +123,33 @@ exports.delete = async (req, res) => {
     }
     const planId = req.params.planId; // Getting plan id from URL parameter
     const paymentplans = await PaymentPlans.findByIdAndDelete(planId); // Deleting the plan
-    if (paymentplans)
+    if (paymentplans){
+      const users = await Users.updateMany(
+        {
+          // Everyone
+        },
+        {
+          $pull: {
+            payment_plan: paymentplans._doc._id
+          }
+        }
+      );
+      const installments = await Installments.deleteMany(
+        {
+          plan: paymentplans._doc._id
+        },
+      );
       return res.json({
         success: true,
         message: "Deleted Succssfully",
         paymentplans,
       });
-    // Success
-    else
+    } else {
       return res.json({
         success: false,
         message: "Already Deleted",
-      }); // Success
+      });
+    }
   } catch (err) {
     // Error handling
     console.log("Error ----> ", err);

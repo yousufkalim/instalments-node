@@ -28,7 +28,7 @@ exports.validateAdmin = [
 // User Signup Validation
 exports.validateUser = [
   check("name", "Name is required.").notEmpty().trim(),
-  check("cnic", "CNIC is required.").notEmpty().trim().isNumeric(),
+  check("cnic", "CNIC is required.").notEmpty().trim(),
   check("email", "Email is required.").notEmpty().isEmail().trim(),
   check("gender", "Gender is required.").notEmpty(),
   check("number", "Number is required.").notEmpty().isNumeric().trim(),
@@ -37,7 +37,7 @@ exports.validateUser = [
 // User Signup Validation
 exports.validateUserUpdate = [
   check("name", "Name is required.").notEmpty().trim(),
-  check("cnic", "CNIC is required.").notEmpty().isNumeric().trim(),
+  check("cnic", "CNIC is required.").notEmpty().trim(),
   check("email", "Email is required.").notEmpty().isEmail().trim(),
   check("gender", "Gender is required.").notEmpty(),
   check("role", "Role is required.").notEmpty(),
@@ -90,6 +90,21 @@ exports.validateInstallment = [
   check("user", "userID is required").notEmpty().trim(),
   check("plan", "InstallmentPlanId is required.").notEmpty().trim(),
   check("due_date", "due_date is required").notEmpty().isDate().trim(),
+];
+// Companies validation
+exports.validateCompanies = [
+  // check("name", "Name is required").notEmpty().trim(),
+  // check("address", "Address is required.").notEmpty().trim(),
+  // check("contact", "Contact is required").notEmpty().isDate().trim(),
+];
+// Transactions validation
+exports.validateTransactions = [
+//   check("amount", "Amount is required").notEmpty().trim(),
+//   check("company", "Company is required.").notEmpty().trim(),
+];
+// Products validation
+exports.validateProducts = [
+  //   check("title", "Title is required").notEmpty().trim(),
 ];
 
 /*

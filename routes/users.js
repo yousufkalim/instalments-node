@@ -34,8 +34,5 @@ router.get("/:userId", checkAuth, users.getById); // Get one user by it's id
 // Update
 router.put("/:userId", checkAuth, users.update); // Update a specific user by it's id
 
-// Delete
-router.delete("/:userId", checkAuth, users.delete); // delete a specific user by it's id
-
 // Export
 module.exports = router;
