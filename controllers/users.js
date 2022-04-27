@@ -187,25 +187,3 @@ exports.update = async (req, res) => {
   }
 };
 
-/**
- * Delete user
- * @param {object} req
- * @param {object} res
- */
-exports.delete = async (req, res) => {
-  try {
-    const admin = await Admins.findOne({ email: req.admin.email }); //To check Token belongs to admin
-    if (!admin) {
-      return res.status(404).json("You are not authorized ");
-    }
-    const userId = req.params.userId; // Getting user id from URL parameter
-    const user = await Users.findByIdAndDelete(userId); // Deleting the user
-    if (user) return res.json({ success: true, message: "User Deleted", user });
-    // Success
-    else return res.json({ success: false, message: "Already Deleted" });
-  } catch (err) {
-    // Error handling
-    console.log("Error ----> ", err);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-};

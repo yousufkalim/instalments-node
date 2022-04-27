@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     cnic: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {

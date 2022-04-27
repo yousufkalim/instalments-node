@@ -7,6 +7,14 @@ const mongoose = require("mongoose");
 // Schema
 const paymentplanSchema = new mongoose.Schema(
   {
+    product_title: {
+      type: String,
+      required: true
+    },
+    product_description: {
+      type: String,
+      required: true
+    },
     plan: {
       type: String,
     },
@@ -28,6 +36,11 @@ const paymentplanSchema = new mongoose.Schema(
     },
     monthly_installment: {
       type: Number,
+      required: true,
+    },
+    admin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admins",
       required: true,
     },
   },
